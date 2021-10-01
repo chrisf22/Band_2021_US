@@ -1,0 +1,54 @@
+check <- mat.or.vec(length(TurbineData[1,]), max(length(TurbineData[,1]), 2))
+for(i in 1:length(TurbineData[,1])){
+if(TurbineData[i, "TurbineModel"] > 0){
+  check[1, i] <- 1
+}
+if(any(TurbineData[i,"Blades"] > 1)&any(TurbineData[i,"Blades"] < 7)){
+  check[2, i] <- 1
+}
+if(any(TurbineData[i,"RotorRadius"] > 1)){
+  check[3, i] <- 1
+}
+if(any(TurbineData[i,"RotorRadiusSD"] >= 0)){
+  check[4, i] <- 1
+}
+if(any(TurbineData[i,"HubHeightAdd"] > 1)){
+  check[5, i] <- 1
+}
+if(any(TurbineData[i,"HubHeightAddSD"] >= 0)){
+  check[6, i] <- 1
+}
+if(any(TurbineData[i,"BladeWidth"] > 0)){
+  check[7, i] <- 1
+}
+if(any(TurbineData[i,"BladeWidthSD"] >= 0)){
+  check[8, i] <- 1
+}
+if(any(TurbineData[i,"WindSpeed"] > 0)){
+  check[9, i] <- 1
+}
+if(any(TurbineData[i,"WindSpeedSD"] >= 0)){
+  check[10, i] <- 1
+}
+if(any(TurbineData[i,"Pitch"] > 0)){
+  check[11, i] <- 1
+}
+if(any(TurbineData[i,"PitchSD"] >= 0)){
+  check[12, i] <- 1
+}
+if(any(TurbineData[i,"WFWidth"] > 1)){
+  check[13, i] <- 1
+}
+if(any(TurbineData[i,"Latitude"] > 23)&any(TurbineData[1,"Latitude"] < 55)){
+  check[14, i] <- 1
+}
+if(any(TurbineData[i,"Prop_Upwind"] >= 0)&any(TurbineData[1,"Prop_Upwind"] <= 1)){
+  check[16, i] <- 1
+}
+if(any(TurbineData[i,"TPower"] > 0)){
+  check[17, i] <- 1
+}
+}
+check[15, ] <- 1
+check[(length(TurbineData[1,]) - 38):length(TurbineData[1,]), ] <- 1
+check <- rowSums(check)
